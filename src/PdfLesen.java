@@ -9,10 +9,17 @@ public class PdfLesen {
 		try {
 			PdfReader reader = new PdfReader( "test.pdf" );
 			int numberOfPages = reader.getNumberOfPages();
-			String s;
+			String text;
+			
 			for (int i = 1; i <= numberOfPages; i++) {
-				s = PdfTextExtractor.getTextFromPage(reader, i);
-				buff.append(s + "\n");
+				text = PdfTextExtractor.getTextFromPage(reader, i);
+				
+				if (text.equals("")) {
+					System.out.println("Seite " + i + " ist leer.");
+				
+				} else {
+					buff.append("<Seite " + i + " >" + text + "\n");
+				}
 			}
 				
 		} catch (IOException e) {

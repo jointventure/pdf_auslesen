@@ -1,11 +1,14 @@
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 
 public class PdfLesen {
 	public static void main(String[] args) {
-		StringBuffer buff = new StringBuffer();
+		List<String> inhalt = new ArrayList<String>();
+		
 		try {
 			PdfReader reader = new PdfReader( "test.pdf" );
 			int numberOfPages = reader.getNumberOfPages();
@@ -16,15 +19,17 @@ public class PdfLesen {
 				
 				if (text.equals("")) {
 					System.out.println("Seite " + i + " ist leer.");
-				
-				} else {
-					buff.append("<Seite " + i + " >" + text + "\n");
+					
 				}
+				inhalt.add(text);
 			}
 				
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(buff.toString());
+		
+		for (String current: inhalt) {
+	        System.out.println("<" + (inhalt.indexOf(current) + 1) + ">" + current);
+	    }
 	}
 }
